@@ -46,15 +46,16 @@ def bruteForce(encrypted_string):
 
 +        for key in range(26):
 +            newMessage = ''
++            newkey = key + 1
 +            for character in encrypted_string:
 +                if character in alphabet:
 +                    position = alphabet.find(character)
-+                    newPosition = (position - key) % 26
++                    newPosition = (position - newkey) % 26
 +                    newCharacter = alphabet[newPosition]
 +                    newMessage += newCharacter
 +                else:
 +                    newMessage += character
-+            decodedMessages[key] = newMessage
++            decodedMessages[newkey] = newMessage
 
 
 # Run App
@@ -74,6 +75,7 @@ def bruteForce(encrypted_string):
 
         for key in range(26):
             newMessage = ''
+            newkey = key + 1
             for character in encrypted_string:
                 if character in alphabet:
 ```
@@ -82,13 +84,15 @@ Let me try to explain exactly what is happening here then.
 ```python
 for key in range(26):
     newMessage = ''
+    newkey = key + 1
 ```
-Here we create a loop that will run 26 times.. exactly how many letter there are in the alphabet and then store the results from each loop into the newMessage varioable before overwriting it on the next loop
+Here we create a loop that will run 26 times.. exactly how many letter there are in the alphabet and then store the results from each loop into the newMessage varioable before overwriting it on the next loop.  
+The newkey variable is to adjust for the fact that python starts counting from 0 not 1.  
 
 The rest of the code is identical to your Secret messages code until the last line of your nested loops
 
 ```python
-decodedMessages[key] = newMessage
+decodedMessages[newkey] = newMessage
 ```
 
 This line adds each of the 26 decrypted words to our dictionary we created along with the key used to encrypt it.
@@ -100,15 +104,16 @@ Add the following lines to your code
 ```diff
 for key in range(26):
     newMessage = ''
+    newkey = key + 1
     for character in encrypted_string:
         if character in alphabet:
             position = alphabet.find(character)
-            newPosition = (position - key) % 26
+            newPosition = (position - newkey) % 26
             newCharacter = alphabet[newPosition]
             newMessage += newCharacter
         else:
             newMessage += character
-    decodedMessages[key] = newMessage
+    decodedMessages[newkey] = newMessage
 
 +    response = Response(
 +       response=json.dumps(decodedMessages),
@@ -130,43 +135,46 @@ Here is the final code in full:
 #!/bin/python3
 from flask import Flask, request, Response, json
 
-
 # App config.
-DEBUG = False
+DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
-app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b61GGh'
+app.config['SECRET_KEY'] = 'My Super Secet Key'
 
 # Global vars
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 # App Logic
+@app.route('/', methods = ['GET','POST'])
+def hello():
+    return json.dumps({'Hello':'World'})
+
 @app.route('/bf-decode/<encrypted_string>', methods = ['GET'])
 def bruteForce(encrypted_string):
     if request.method == 'GET':
-
         decodedMessages = {}
 
         for key in range(26):
             newMessage = ''
+            newkey = key + 1
             for character in encrypted_string:
                 if character in alphabet:
                     position = alphabet.find(character)
-                    newPosition = (position - key) % 26
+                    newPosition = (position - newkey) % 26
                     newCharacter = alphabet[newPosition]
                     newMessage += newCharacter
                 else:
                     newMessage += character
-            decodedMessages[key] = newMessage
+            decodedMessages[newkey] = newMessage
 
-        response = Response(
-        response=json.dumps(decodedMessages),
-        status=200,
-        mimetype='application/json'
-        )
-        return response
+    response = Response(
+       response=json.dumps(decodedMessages),
+       status=200,
+       mimetype='application/json'
+       )
+    return response
 
-
+# Run App
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=DEBUG)
 ```
