@@ -10,11 +10,20 @@ Once you have you computer booted up, I will require that you have Python instal
 If you are doing this exercise on a Raspberry pi, then Good news, its already installed and youre good to go!
 Once you are up and running, type in this code into the Terminal/CMD Prompt
 
-Raspberry Pi Type: 
+If youre installing on Windows, you have to be sure to tick the box that installs it to the $PATH and the other box for all users.
+
+![Select Path][winpath]
+![For all Users][winallusers]
+
+Raspberry Pi Open the terminal with CTRL-ALT-T and Type: 
 ```
 sudo python pip install flask requests
 ```  
-Windows Type: 
+Windows, to open powershell:
+![powershell][powershell]
+
+
+Windows Open Powershell and Type: 
 ```
 python -m pip install flask requests
 ```
@@ -112,3 +121,7 @@ and you will see the below printed to your screen in response:
  ```127.0.0.1:5000/``` Or ```localhost:5000/```
 
  You should see the words "Hello World!" Printed on the screen.
+ 
+ [winpath]: http://arcade.academy/_images/setup_windows_1.png
+ [winallusers]: http://arcade.academy/_images/setup_windows_3.png
+ [powershell]: https://4sysops.com/wp-content/uploads/2015/10/PowerShell-ISE-is-hard-to-find-with-Start-Search.png
