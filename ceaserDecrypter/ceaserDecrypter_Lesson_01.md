@@ -15,7 +15,7 @@ If youre installing on Windows, you have to be sure to tick the box that install
 ![Select Path][winpath]
 ![For all Users][winallusers]
 
-Raspberry Pi Open the terminal with CTRL-ALT-T and Type: 
+Raspberry Pi Open the terminal with CTRL-ALT-T and Type:
 ```
 sudo python pip install flask requests
 ```  
@@ -23,7 +23,7 @@ Windows, to open powershell:
 ![powershell][powershell]
 
 
-Windows Open Powershell and Type: 
+Windows Open Powershell and Type:
 ```
 python -m pip install flask requests
 ```
@@ -35,7 +35,7 @@ You to complete this mission in the time we have, you will need to have complete
 ``` python
 alphabet = 'abcdefghijklmnopqrstuvwxyz'
 newMessage = ''
-  
+
 message = input('Please enter a message: ')
 
 key = input('Enter a key (1-26): ')
@@ -86,7 +86,7 @@ app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = 'My Super Secet Key'
 ```
-This bit covers all of your imports. Imports are the things that your program will need to work. It also gets them ready to be used. You will need these lines every time you make an API with _flask_ 
+This bit covers all of your imports. Imports are the things that your program will need to work. It also gets them ready to be used. You will need these lines every time you make an API with _flask_
 
 Lets continue.
 
@@ -121,7 +121,7 @@ and you will see the below printed to your screen in response:
  ```127.0.0.1:5000/``` Or ```localhost:5000/```
 
  You should see the words "Hello World!" Printed on the screen.
- 
+
  [winpath]: http://arcade.academy/_images/setup_windows_1.png
  [winallusers]: http://arcade.academy/_images/setup_windows_3.png
  [powershell]: https://4sysops.com/wp-content/uploads/2015/10/PowerShell-ISE-is-hard-to-find-with-Start-Search.png

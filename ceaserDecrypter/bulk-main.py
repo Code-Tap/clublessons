@@ -15,31 +15,34 @@ alphabet = 'abcdefghijklmnopqrstuvwxyz'
 # App Logic
 @app.route('/', methods = ['GET','POST'])
 def hello():
-    return json.dumps({'Hello':'World'})
+    return 'Hello world!'
 
 
 @app.route('/bf-decode/<encrypted_string>', methods = ['GET'])
 def bruteForce(encrypted_string):
     if request.method == 'GET':
         decodedMessages = {}
+
         for key in range(26):
             newMessage = ''
+            newkey = key + 1
             for character in encrypted_string:
                 if character in alphabet:
                     position = alphabet.find(character)
-                    newPosition = (position - key) % 26
+                    newPosition = (position - newkey) % 26
                     newCharacter = alphabet[newPosition]
                     newMessage += newCharacter
                 else:
                     newMessage += character
-            decodedMessages[key] = newMessage
+            decodedMessages[newkey] = newMessage
 
-        response = Response(
-        response=json.dumps(decodedMessages),
-        status=200,
-        mimetype='application/json'
-        )
-        return response
+    response = Response(
+       response=json.dumps(decodedMessages),
+       status=200,
+       mimetype='application/json'
+       )
+    return response
+
 
 @app.route('/bf-decode', methods = ['POST'])
 def bruteForceList():
@@ -47,15 +50,16 @@ def bruteForceList():
 
         data = request.data
         dataDict = json.loads(data)
-        
+
         for item in dataDict:
             decodedMessages = []
             for key in range(26):
                 newMessage = ''
+                newkey = key + 1
                 for character in item:
                     if character in alphabet:
                         position = alphabet.find(character)
-                        newPosition = (position - key) % 26
+                        newPosition = (position - newkey) % 26
                         newCharacter = alphabet[newPosition]
                         newMessage += newCharacter
                     else:
@@ -74,6 +78,3 @@ def bruteForceList():
 
 if __name__ == '__main__':
     app.run(debug=DEBUG)
-
-
-    

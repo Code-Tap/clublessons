@@ -29,7 +29,7 @@ if __name__ == '__main__':
     app.run(debug=DEBUG)
 ```
 
- 
+
 The lines you have just added create a URL to your API, that you will be able to interact with, and then define a function that will be run when that URL is activated.
 
 Remember your code from the Secret messages lesson I said you would need? Well now is when you need it, open it up and copy the loop from it plus the extra line i've added.
@@ -80,7 +80,7 @@ def bruteForce(encrypted_string):
                 if character in alphabet:
 ```
 
-Let me try to explain exactly what is happening here then. 
+Let me try to explain exactly what is happening here then.
 ```python
 for key in range(26):
     newMessage = ''
@@ -99,7 +99,7 @@ This line adds each of the 26 decrypted words to our dictionary we created along
 
 The final piece of the puzzle we need is to make the API respond to you when you interact with it.
 
-Add the following lines to your code 
+Add the following lines to your code
 
 ```diff
 for key in range(26):
@@ -123,7 +123,7 @@ for key in range(26):
 +    return response
 ```
 
-This completes your Decryption API. you can interact with it by running your saved file and going to the following address. 
+This completes your Decryption API. you can interact with it by running your saved file and going to the following address.
 
 ```http://localhost:5000/bf-decode/<encrypted string>```
 
